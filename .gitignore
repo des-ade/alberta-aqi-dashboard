@@ -1,0 +1,19 @@
+# Environment variables (your secrets live here - NEVER commit these)
+.env
+.env.local
+.env.production
+*.env
+
+# .NET build output
+backend/bin/
+backend/obj/
+backend/appsettings.Production.json
+
+# Node modules
+frontend/node_modules/
+
+# VS Code personal settings
+.vscode/settings.json
+
+# Docker override files
+docker-compose.override.yml
