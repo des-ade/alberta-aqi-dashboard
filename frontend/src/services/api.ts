@@ -1,10 +1,11 @@
 import axios from 'axios';
 import type { Station } from '../types/station';
 
-// Points to your .NET backend
-const api = axios.create({
-  baseURL: 'http://localhost:5223',
-});
+// In Docker the nginx proxy handles routing so we use relative URLs
+// In local dev we point directly to the backend port
+const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5223';
+
+const api = axios.create({ baseURL });
 
 export const fetchStations = async (activeOnly = false): Promise<Station[]> => {
   const response = await api.get<Station[]>('/api/stations', {

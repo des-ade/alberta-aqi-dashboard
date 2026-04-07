@@ -50,28 +50,33 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.MapControllers();
 
 // Hangfire dashboard (local dev only)
-app.UseHangfireDashboard("/hangfire");
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[] { new AllowAllDashboardAuthorizationFilter() }
+});
 
 // Schedule recurring jobs
-RecurringJob.AddOrUpdate<IngestionJob>(
-    "sync-stations",
-    job => job.SyncStationsAsync(),
-    Cron.Daily);
+// RecurringJob.AddOrUpdate<IngestionJob>(
+//     "sync-stations",
+//     job => job.SyncStationsAsync(),
+//     Cron.Daily);
 
-RecurringJob.AddOrUpdate<IngestionJob>(
-    "ingest-readings",
-    job => job.IngestLatestReadingsAsync(),
-    Cron.Hourly);
+// RecurringJob.AddOrUpdate<IngestionJob>(
+//     "ingest-readings",
+//     job => job.IngestLatestReadingsAsync(),
+//     Cron.Hourly);
 
 app.Run();
+
+public class AllowAllDashboardAuthorizationFilter : Hangfire.Dashboard.IDashboardAuthorizationFilter
+{
+    public bool Authorize(Hangfire.Dashboard.DashboardContext context) => true;
+}

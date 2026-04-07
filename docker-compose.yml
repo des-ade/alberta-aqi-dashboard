@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+
   postgres:
     image: postgres:16
     container_name: alberta_aqi_db
@@ -12,6 +11,36 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aqi_user -d alberta_aqi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend/AlbertaAqi.Api
+      dockerfile: Dockerfile
+    container_name: alberta_aqi_backend
+    ports:
+      - "5223:8080"
+    environment:
+      POSTGRES_CONNECTION: Host=postgres;Port=5432;Database=alberta_aqi;Username=aqi_user;Password=aqi_dev_password
+      OPENAQ_API_KEY: ${OPENAQ_API_KEY}
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: alberta_aqi_frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
