@@ -83,4 +83,22 @@ public class StationsController : ControllerBase
             }).ToList()
         });
     }
+
+    // GET /api/stations/latest-pm25
+    [HttpGet("latest-pm25")]
+    public async Task<ActionResult<Dictionary<int, double>>> GetLatestPm25()
+    {
+        var latest = await _db.Readings
+            .Where(r => r.Sensor.Parameter == "pm25")
+            .GroupBy(r => r.LocationId)
+            .Select(g => new
+            {
+                LocationId = g.Key,
+                Value = g.OrderByDescending(r => r.DatetimeUtc)
+                        .First().Value
+            })
+            .ToDictionaryAsync(x => x.LocationId, x => x.Value);
+
+        return Ok(latest);
+    }
 }
