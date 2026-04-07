@@ -1,18 +1,48 @@
 using Microsoft.EntityFrameworkCore;
+using Hangfire;
+using Hangfire.PostgreSql;
 using AlbertaAqi.Api.Data;
+using AlbertaAqi.Api.Services;
+using AlbertaAqi.Api.Jobs;
 using DotNetEnv;
 
-// Load .env file from project root (two levels up from the running binary)
-Env.Load(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", ".env"));
+// Load .env from project root
+var envPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env");
+Env.Load(envPath);
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register PostgreSQL via EF Core
 var connectionString = Environment.GetEnvironmentVariable("POSTGRES_CONNECTION")
-    ?? throw new InvalidOperationException("POSTGRES_CONNECTION environment variable not set.");
+    ?? throw new InvalidOperationException("POSTGRES_CONNECTION not set.");
 
+// PostgreSQL via EF Core
 builder.Services.AddDbContext<AqiDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+// Hangfire with PostgreSQL storage
+builder.Services.AddHangfire(config =>
+    config.UsePostgreSqlStorage(connectionString));
+builder.Services.AddHangfireServer();
+
+// Register OpenAQ HttpClient with API key header
+builder.Services.AddHttpClient<OpenAqService>(client =>
+{
+    var apiKey = Environment.GetEnvironmentVariable("OPENAQ_API_KEY") ?? string.Empty;
+    client.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+    client.Timeout = TimeSpan.FromSeconds(30);
+});
+
+// Register jobs and services
+builder.Services.AddScoped<IngestionJob>();
+
+// CORS — allow React frontend (runs on port 5173 via Vite)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -26,8 +56,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowFrontend");
 app.UseAuthorization();
 app.MapControllers();
+
+// Hangfire dashboard (local dev only)
+app.UseHangfireDashboard("/hangfire");
+
+// Schedule recurring jobs
+RecurringJob.AddOrUpdate<IngestionJob>(
+    "sync-stations",
+    job => job.SyncStationsAsync(),
+    Cron.Daily);
+
+RecurringJob.AddOrUpdate<IngestionJob>(
+    "ingest-readings",
+    job => job.IngestLatestReadingsAsync(),
+    Cron.Hourly);
 
 app.Run();

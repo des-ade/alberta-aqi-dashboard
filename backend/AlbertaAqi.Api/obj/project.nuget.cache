@@ -1,10 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "yoqb6lF42NY=",
+  "dgSpecHash": "Y4hAjr1m9+Q=",
   "success": true,
   "projectFilePath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Des\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Des\\.nuget\\packages\\dapper.aot\\1.0.48\\dapper.aot.1.0.48.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\dotnetenv\\3.1.1\\dotnetenv.3.1.1.nupkg.sha512",
+    "C:\\Users\\Des\\.nuget\\packages\\hangfire.aspnetcore\\1.8.23\\hangfire.aspnetcore.1.8.23.nupkg.sha512",
+    "C:\\Users\\Des\\.nuget\\packages\\hangfire.core\\1.8.23\\hangfire.core.1.8.23.nupkg.sha512",
+    "C:\\Users\\Des\\.nuget\\packages\\hangfire.netcore\\1.8.23\\hangfire.netcore.1.8.23.nupkg.sha512",
+    "C:\\Users\\Des\\.nuget\\packages\\hangfire.postgresql\\1.21.1\\hangfire.postgresql.1.21.1.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.5\\microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\microsoft.build.framework\\18.0.2\\microsoft.build.framework.18.0.2.nupkg.sha512",
