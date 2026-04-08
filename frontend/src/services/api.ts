@@ -3,7 +3,7 @@ import type { Station } from '../types/station';
 
 // In Docker the nginx proxy handles routing so we use relative URLs
 // In local dev we point directly to the backend port
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5223';
+const baseURL = import.meta.env.VITE_API_URL ?? '';
 
 const api = axios.create({ baseURL });
 

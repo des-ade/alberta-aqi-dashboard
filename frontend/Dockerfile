@@ -8,6 +8,7 @@ RUN npm install
 
 # Copy source and build
 COPY . ./
+COPY .env.docker .env
 RUN npm run build
 
 # Runtime stage — serve with nginx
