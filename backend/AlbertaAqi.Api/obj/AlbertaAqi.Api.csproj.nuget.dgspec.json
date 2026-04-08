@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj": {}
+    "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj": {}
   },
   "projects": {
-    "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj": {
+    "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
+        "projectUniqueName": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
         "projectName": "AlbertaAqi.Api",
-        "projectPath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
+        "projectPath": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
         "packagesPath": "C:\\Users\\Des\\.nuget\\packages\\",
-        "outputPath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\obj\\",
+        "outputPath": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Des\\AppData\\Roaming\\NuGet\\NuGet.Config"

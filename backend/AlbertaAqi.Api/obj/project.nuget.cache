@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y4hAjr1m9+Q=",
+  "dgSpecHash": "A3KPF2PWjNg=",
   "success": true,
-  "projectFilePath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
+  "projectFilePath": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Des\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\dapper.aot\\1.0.48\\dapper.aot.1.0.48.nupkg.sha512",

@@ -8,7 +8,10 @@ using DotNetEnv;
 
 // Load .env from project root
 var envPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env");
-Env.Load(envPath);
+if (File.Exists(envPath))
+{
+    Env.Load(envPath);
+}
 
 var builder = WebApplication.CreateBuilder(args);
 
