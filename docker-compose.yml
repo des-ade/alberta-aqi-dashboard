@@ -1,6 +1,8 @@
 services:
   backend:
-    image: 921829859547.dkr.ecr.ca-central-1.amazonaws.com/alberta-aqi-backend:latest
+    build:
+      context: ./backend/AlbertaAqi.Api
+      dockerfile: Dockerfile
     ports:
       - "5223:8080"
     environment:
@@ -9,7 +11,9 @@ services:
       ASPNETCORE_ENVIRONMENT: Production
 
   frontend:
-    image: 921829859547.dkr.ecr.ca-central-1.amazonaws.com/alberta-aqi-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "80:80"
     depends_on:
