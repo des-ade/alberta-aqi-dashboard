@@ -67,15 +67,15 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
 });
 
 // Schedule recurring jobs
-// RecurringJob.AddOrUpdate<IngestionJob>(
-//     "sync-stations",
-//     job => job.SyncStationsAsync(),
-//     Cron.Daily);
+RecurringJob.AddOrUpdate<IngestionJob>(
+    "sync-stations",
+    job => job.SyncStationsAsync(),
+    Cron.Daily);
 
-// RecurringJob.AddOrUpdate<IngestionJob>(
-//     "ingest-readings",
-//     job => job.IngestLatestReadingsAsync(),
-//     Cron.Hourly);
+RecurringJob.AddOrUpdate<IngestionJob>(
+    "ingest-readings",
+    job => job.IngestLatestReadingsAsync(),
+    Cron.Hourly);
 
 app.Run();
 

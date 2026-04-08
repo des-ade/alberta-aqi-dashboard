@@ -92,14 +92,19 @@ public class IngestionJob
     {
         _logger.LogInformation("Starting readings ingestion...");
 
+        // Optimization 1: PM2.5 sensors only on ingestion
+        // This dramatically reduces API calls and storage
         var activeSensors = await _db.Sensors
             .Include(s => s.Station)
-            .Where(s => s.Station.IsActive)
+            .Where(s => s.Station.IsActive && s.Parameter == "pm25")
             .ToListAsync();
 
         var dateTo = DateTime.UtcNow;
-        var dateFrom = dateTo.AddHours(-2); // Fetch last 2 hours each run
+        var dateFrom = dateTo.AddHours(-2);
         var totalInserted = 0;
+
+        // Optimization 2: Batch collect all readings first
+        var allNewReadings = new List<Reading>();
 
         foreach (var sensor in activeSensors)
         {
@@ -108,30 +113,36 @@ public class IngestionJob
             foreach (var m in measurements)
             {
                 if (m.Period?.DatetimeFrom?.Utc == null) continue;
-
-                var readingTime = m.Period.DatetimeFrom.Utc.Value;
-
-                // Skip if we already have this reading
-                var exists = await _db.Readings.AnyAsync(r =>
-                    r.SensorId == sensor.Id && r.DatetimeUtc == readingTime);
-
-                if (!exists)
+                allNewReadings.Add(new Reading
                 {
-                    _db.Readings.Add(new Reading
-                    {
-                        SensorId = sensor.Id,
-                        LocationId = sensor.LocationId,
-                        Value = m.Value,
-                        DatetimeUtc = readingTime
-                    });
-                    totalInserted++;
-                }
+                    SensorId = sensor.Id,
+                    LocationId = sensor.LocationId,
+                    Value = m.Value,
+                    DatetimeUtc = m.Period.DatetimeFrom.Utc.Value
+                });
             }
 
-            await Task.Delay(150); // Rate limit courtesy delay
+            await Task.Delay(150);
         }
 
-        await _db.SaveChangesAsync();
+        // Optimization 3: Batch duplicate check instead of one query per reading
+        if (allNewReadings.Any())
+        {
+            var sensorIds = allNewReadings.Select(r => r.SensorId).Distinct().ToList();
+            var existingReadings = await _db.Readings
+                .Where(r => sensorIds.Contains(r.SensorId) && r.DatetimeUtc >= dateFrom)
+                .Select(r => new { r.SensorId, r.DatetimeUtc })
+                .ToHashSetAsync();
+
+            var newOnly = allNewReadings
+                .Where(r => !existingReadings.Contains(new { r.SensorId, r.DatetimeUtc }))
+                .ToList();
+
+            _db.Readings.AddRange(newOnly);
+            await _db.SaveChangesAsync();
+            totalInserted = newOnly.Count;
+        }
+
         _logger.LogInformation("Readings ingestion complete. {Count} new readings inserted.", totalInserted);
     }
 }
