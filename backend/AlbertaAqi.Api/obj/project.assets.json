@@ -2,6 +2,21 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "AspNetCoreRateLimit/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2"
+        },
+        "compile": {
+          "lib/net6.0/AspNetCoreRateLimit.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/AspNetCoreRateLimit.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Dapper/2.0.123": {
         "type": "package",
         "compile": {
@@ -936,6 +951,18 @@
     }
   },
   "libraries": {
+    "AspNetCoreRateLimit/5.0.0": {
+      "sha512": "6fq9+o1maGADUmpK/PvcF0DtXW2+7bSkIL7MDIo/agbIHKN8XkMQF4oze60DO731WaQmHmK260hB30FwPzCmEg==",
+      "type": "package",
+      "path": "aspnetcoreratelimit/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspnetcoreratelimit.5.0.0.nupkg.sha512",
+        "aspnetcoreratelimit.nuspec",
+        "lib/net6.0/AspNetCoreRateLimit.dll"
+      ]
+    },
     "Dapper/2.0.123": {
       "sha512": "RDFF4rBLLmbpi6pwkY7q/M6UXHRJEOerplDGE5jwEkP/JGJnBauAClYavNKJPW1yOTWRPIyfj4is3EaJxQXILQ==",
       "type": "package",
@@ -3089,6 +3116,7 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "AspNetCoreRateLimit >= 5.0.0",
       "DotNetEnv >= 3.1.1",
       "Hangfire.AspNetCore >= 1.8.23",
       "Hangfire.PostgreSql >= 1.21.1",
@@ -3105,11 +3133,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
+      "projectUniqueName": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
       "projectName": "AlbertaAqi.Api",
-      "projectPath": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
+      "projectPath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
       "packagesPath": "C:\\Users\\Des\\.nuget\\packages\\",
-      "outputPath": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\obj\\",
+      "outputPath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Des\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3142,6 +3170,10 @@
       "net10.0": {
         "targetAlias": "net10.0",
         "dependencies": {
+          "AspNetCoreRateLimit": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
           "DotNetEnv": {
             "target": "Package",
             "version": "[3.1.1, )"

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AlbertaAqi.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84352c8784961215eca0bae35ba6c78a46bde520")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e95de1bab7b366c339e62565c4a7354c6b1c1833")]
 [assembly: System.Reflection.AssemblyProductAttribute("AlbertaAqi.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AlbertaAqi.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

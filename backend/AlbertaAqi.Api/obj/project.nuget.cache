@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "A3KPF2PWjNg=",
+  "dgSpecHash": "rCei/8UJGFM=",
   "success": true,
-  "projectFilePath": "E:\\onedrive\\programs\\aqi-dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
+  "projectFilePath": "E:\\OneDrive\\Programs\\AQI-Dash\\alberta-aqi-dashboard\\backend\\AlbertaAqi.Api\\AlbertaAqi.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Des\\.nuget\\packages\\aspnetcoreratelimit\\5.0.0\\aspnetcoreratelimit.5.0.0.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\dapper.aot\\1.0.48\\dapper.aot.1.0.48.nupkg.sha512",
     "C:\\Users\\Des\\.nuget\\packages\\dotnetenv\\3.1.1\\dotnetenv.3.1.1.nupkg.sha512",
