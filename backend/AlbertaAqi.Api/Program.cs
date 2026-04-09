@@ -62,7 +62,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Hangfire dashboard (local dev only)
-app.UseHangfireDashboard("/hangfire", new DashboardOptions
+app.UseHangfireDashboard("/internal-jobs-dashboard", new DashboardOptions
 {
     Authorization = new[] { new AllowAllDashboardAuthorizationFilter() }
 });
