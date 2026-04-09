@@ -6,7 +6,6 @@ using AlbertaAqi.Api.Data;
 using AlbertaAqi.Api.Services;
 using AlbertaAqi.Api.Jobs;
 using DotNetEnv;
-using AspNetCoreRateLimit;
 
 // Load .env from project root
 var envPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "..", ".env");
@@ -49,31 +48,6 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod());
 });
 
-// Rate limiting — protects against abuse and excess AWS charges
-builder.Services.AddMemoryCache();
-builder.Services.Configure<IpRateLimitOptions>(options =>
-{
-    options.EnableEndpointRateLimiting = true;
-    options.StackBlockedRequests = false;
-    options.GeneralRules = new List<RateLimitRule>
-    {
-        new RateLimitRule
-        {
-            Endpoint = "*",
-            Period = "1m",
-            Limit = 60  // 60 requests per minute per IP
-        },
-        new RateLimitRule
-        {
-            Endpoint = "post:/api/ingestion/*",
-            Period = "1h",
-            Limit = 2   // ingestion endpoints max twice per hour
-        }
-    };
-});
-builder.Services.AddInMemoryRateLimiting();
-builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -84,8 +58,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors("AllowFrontend");
-
-app.UseIpRateLimiting();
 
 app.UseAuthorization();
 app.MapControllers();
