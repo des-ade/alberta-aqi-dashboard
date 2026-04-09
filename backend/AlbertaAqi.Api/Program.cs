@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Hangfire;
 using Hangfire.PostgreSql;
-using Hangfire.Dashboard;
 using AlbertaAqi.Api.Data;
 using AlbertaAqi.Api.Services;
 using AlbertaAqi.Api.Jobs;
@@ -63,11 +62,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Hangfire dashboard (local dev only)
-app.UseHangfireDashboard("/internal-jobs-dashboard", new DashboardOptions
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
 {
-    Authorization = new[] { new AllowAllDashboardAuthorizationFilter() },
-    IsReadOnlyFunc = (DashboardContext context) =>
-        !context.Request.LocalIpAddress.Equals(context.Request.RemoteIpAddress)
+    Authorization = new[] { new AllowAllDashboardAuthorizationFilter() }
 });
 
 // Schedule recurring jobs
